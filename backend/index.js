@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const app = express()
-const port = process.env.PORT || 3000;
+const app = express();
+const registrations = require('./routes/registrations');
+const auth = require('./routes/auth');
+const port = process.env.PORT || 4000;
 
 mongoose.set('strictQuery', true)
 
@@ -16,6 +18,8 @@ app.get('/', (req,res) => {
   res.send('<h1>Home page</h1>')
 })
 
+app.use('/api/auth', auth)
+app.use('/api/registrations', registrations)
 app.listen(port , () => {
   console.log(`App listening on PORT ${port}`)
 })
