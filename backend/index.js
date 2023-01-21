@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const registrations = require('./routes/registrations');
 const auth = require('./routes/auth');
+const languages = require('./routes/languages');
 const cors = require('cors');
 const port = process.env.PORT || 4000;
 
@@ -21,6 +22,7 @@ app.get('/', (req,res) => {
 
 app.use('/api/auth', auth)
 app.use('/api/registrations', registrations)
+app.use('/api/languages', languages)
 app.listen(port , () => {
   console.log(`App listening on PORT ${port}`)
 })

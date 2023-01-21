@@ -5,12 +5,18 @@ const router = express.Router()
 const _ = require('lodash')
 const bcrypt = require('bcrypt')
 
+const response = {
+  status:'xyz',
+  success:true,
+  result:''
+}
+
 router.post('/', async (req, res) => {
   const { error } = validate(req.body)
   if(error) return res.status(400).send(error.details[0].message)
 
   let user = await User.findOne({email: req.body.email})
-  if(user) return res.status(400).send('User already registered!')
+  if(user) return res.status(400).send({status:400, message:'User already registered!'})
 
   user = new User(_.pick(req.body, ["firstName", "lastName", "email", "password", "phone", "gender", "isAdmin"]))
   const salt = await bcrypt.genSalt(10)
